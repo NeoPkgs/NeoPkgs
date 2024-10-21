@@ -8,6 +8,7 @@ PKGNAME="example"
 PKGDESC="An example package"
 PKGMAINTAINER="NeoPkgs Team"
 PKGDEP="dep1"
+PKGVER="1.0.0"
 
 # You cannot modify this function.
 function info() {
@@ -15,6 +16,7 @@ function info() {
     echo "Description: $PKGDESC"
     echo "Maintainer: $PKGMAINTAINER"
     echo "Dependencies: $PKGDEP"
+    echo "Version: $PKGVER"
     echo ""
     echo "You must install all dependencies for install this package."
 }
