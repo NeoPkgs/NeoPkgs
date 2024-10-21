@@ -11,4 +11,4 @@ wget https://neopkgs.github.io/NeoPkgs/np && bash np setup
 
 ## Contribute
 
-Read repo/example.sh.
+See CONTRIBUTE.md for more informations.
