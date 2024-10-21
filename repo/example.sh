@@ -9,8 +9,9 @@ PKGDESC="An example package"
 PKGMAINTAINER="NeoPkgs Team"
 PKGDEP="dep1"
 PKGVER="1.0.0"
+# and you can add PKGHOMEPAGE PKGLICENSE etc...
 
-# You cannot modify this function.
+# Read CONTRIBUTE.md for extra information.
 function info() {
     echo "Package Name: $PKGNAME"
     echo "Description: $PKGDESC"
@@ -27,7 +28,7 @@ function build() {
     mkdir -p /tmp/$PKGNAME-build
     cd /tmp/$PKGNAME-build
     echo "Compiling $PKGNAME..."
-    # Place installion script here
+    # TODO: Place installion script here
     
     echo "Installation completed for $PKGNAME."
 }
