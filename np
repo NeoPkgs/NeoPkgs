@@ -54,7 +54,6 @@ function np_install() {
 }
 
 function np_setup () {
-    cd ~
     echo "I will setup NeoPkgs Package Manager."
     mv np /usr/bin/
     chmod +x /usr/bin/np
