@@ -1,0 +1,84 @@
+#!/bin/bash
+
+REPO_URL="https://neopkgs.github.io/NeoPkgs/repo"
+TEMP_DIR="/tmp"
+DEPENDENCIES=("wget" "make" "gcc" "g++" "cmake" "git")
+
+function check_dependencies() {
+    for dep in "${DEPENDENCIES[@]}"; do
+        if ! command -v "$dep" &> /dev/null; then
+            echo "$dep is not installed. Please install it."
+            exit 1
+        fi
+    done
+}
+
+function fetch_package_script() {
+    local package="$1"
+    local script_url="$REPO_URL/$package.sh"
+    local script_path="$TEMP_DIR/$package.sh"
+
+    wget -q -O "$script_path" "$script_url"
+    if [ $? -ne 0 ]; then
+        echo "Failed to download the package script for $package."
+        exit 1
+    fi
+    echo "$script_path"
+}
+
+function np_info() {
+    local package="$1"
+    local script_path=$(fetch_package_script "$package")
+
+    bash "$script_path" info
+}
+
+function np_install() {
+    local package="$1"
+    local script_path=$(fetch_package_script "$package")
+
+    bash "$script_path" info
+    read -p "Do you want to continue with the installation? (y/n): " confirm
+    if [[ "$confirm" == "y" ]]; then
+        bash "$script_path" build
+    else
+        echo "Installation aborted."
+    fi
+}
+
+function np_setup () {
+    echo "I will setup NeoPkgs Package Manager."
+    wget https://neopkgs.github.io/NeoPkgs/np -O /usr/bin
+    chmod +x /usr/bin/np
+    echo "You can start it by command 'np'."
+}
+
+function main() {
+    check_dependencies
+
+    case "$1" in
+        info)
+            if [ -z "$2" ]; then
+                echo "Please specify a package."
+                exit 1
+            fi
+            np_info "$2"
+            ;;
+        install)
+            if [ -z "$2" ]; then
+                echo "Please specify a package."
+                exit 1
+            fi
+            np_install "$2"
+            ;;
+        setup)
+            np_setup
+            ;;
+        *)
+            echo "Usage: np {info|install} <package>"
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"
