@@ -54,10 +54,20 @@ function np_install() {
 }
 
 function np_setup () {
+    cd ~
     echo "I will setup NeoPkgs Package Manager."
     mv np /usr/bin/
     chmod +x /usr/bin/np
     echo "You can start it by command 'np'."
+}
+
+function np_upgrade_self () {
+    cd ~
+    rm /usr/bin/np
+    wget https://neopkgs.github.io/NeoPkgs/np
+    mv np /usr/bin/
+    chmod +x /usr/bin/np
+    echo "Upgrade complete."
 }
 
 function main() {
@@ -82,8 +92,11 @@ function main() {
         setup)
             np_setup
             ;;
+        upgrade-self)
+            np_upgrade_self
+            ;;
         *)
-            echo "Usage: np {info|install} <package>"
+            echo "Usage: np {info|install|upgrade-self} <package>"
             exit 1
             ;;
     esac
