@@ -4,6 +4,13 @@ REPO_URL="https://neopkgs.github.io/NeoPkgs/repo"
 TEMP_DIR="/tmp"
 DEPENDENCIES=("wget" "make" "gcc" "g++" "cmake" "git")
 
+function check_root() {
+    if [ "$EUID" -ne 0 ]; then
+        echo "This script must be run as root or with sudo."
+        exit 1
+    fi
+}
+
 function check_dependencies() {
     for dep in "${DEPENDENCIES[@]}"; do
         if ! command -v "$dep" &> /dev/null; then
@@ -48,12 +55,13 @@ function np_install() {
 
 function np_setup () {
     echo "I will setup NeoPkgs Package Manager."
-    wget https://neopkgs.github.io/NeoPkgs/np -O /usr/bin
+    mv np /usr/bin/
     chmod +x /usr/bin/np
     echo "You can start it by command 'np'."
 }
 
 function main() {
+    check_root
     check_dependencies
 
     case "$1" in
