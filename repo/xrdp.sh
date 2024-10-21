@@ -7,7 +7,7 @@ GET=wget
 PKGNAME="xrdp"
 PKGDESC="an open source RDP server"
 PKGMAINTAINER="NeoPkgs Team"
-PKGDEP="libssl imlib2 freetype libjpeg make nasm libfuse pixman libx11 libxft libxfixes libpam libxrandr"
+PKGDEP="libgbm libssl imlib2 freetype libjpeg make nasm libfuse pixman libx11 libxft libxfixes libpam libxrandr"
 PKGVER="0.10.1"
 
 # You cannot modify this function.
